@@ -1,0 +1,43 @@
+<template name="chunk-text-show">
+  <div>
+    {{pagedown content}}
+  </div>
+</template>
+
+<template name="chunk-text-edit">
+  <p><textarea>{{content}}</textarea></p>
+</template>
+
+<template name="chunk-photo-show">
+</template>
+
+<template name="chunk-photo-edit">
+</template>
+
+<template name="chunk-math-show">
+  {{#mathjax}}
+    {{pagedown content}}
+  {{/mathjax}}
+</template>
+
+<template name="chunk-math-edit">
+  {{#ace mode='markdown'}}
+    <textarea id="{{chunkId}}" name="{{name}}">{{content}}</textarea>
+  {{/ace}}
+</template>
+
+<!--
+
+text
+code
+photo
+multiphoto
+video
+audio
+file
+math
+chart
+table
+list
+
+-->
