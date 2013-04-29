@@ -7,8 +7,12 @@
     "actions": {
       "git": "https://github.com/apendua/meteor-actions.git"
     },
+    "ace-editor": {
+      "git": "https://github.com/apendua/meteor-ace.git"
+    },
     "define": {},
     "router": {},
-    "module-loader": {}
+    "module-loader": {},
+    "mathjax": {}
   }
 }

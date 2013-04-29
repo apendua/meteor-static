@@ -52,7 +52,15 @@
   </div><!-- navbar -->
 
   <div class="container">
-    {{renderPage}}
+
+    <div class="row-fluid">
+      <div class="span3">
+        {{> navigation}}
+      </div>
+      <div class="span9">
+        {{renderPage}}
+      </div>
+    </div>
     <hr>
     <footer>
       <p>&copy Very Cool Company 2013</p>

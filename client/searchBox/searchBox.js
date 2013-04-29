@@ -35,7 +35,7 @@ Template.searchBox.helpers({
 Template.searchBox.events({
   'submit form': function (event) {
     var searchOptions = $(event.target).serializeObject();
-    var searchURL = makeSearchURL(searchOptions);
+    var searchURL = makeSearchPath(searchOptions);
     Meteor.Router.to(searchURL);
     event.preventDefault();
   }

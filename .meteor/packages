@@ -6,9 +6,10 @@
 preserve-inputs
 define
 router
-showdown
 module-loader
 actions
 bootstrap
 accounts-base
 accounts-password
+mathjax
+ace-editor

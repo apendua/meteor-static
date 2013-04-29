@@ -1,0 +1,14 @@
+
+<template name="search">
+  <div class="row-fluid">
+    <div class="span12">
+      {{#each documents}}
+        <div class="row-fluid">
+          {{> documentBrief}}
+        </div>
+      {{else}}
+        Nie znaleziono dokumentów spełniających podane kryteria wyszukiwania.
+      {{/each}}
+    </div>
+  </div>
+</template>

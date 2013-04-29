@@ -1,0 +1,12 @@
+
+.ace-editor textarea {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  bottom : 0;
+  box-sizing: border-box;
+};
+
+.ace-editor {
+  height : 200px;
+};

@@ -1,0 +1,57 @@
+
+<template name="document">
+  <form>
+    {{#isolate}}
+      {{#fetch document ignore="body"}}
+        <input type="hidden" name="_id" value="{{variant}}">
+        <div class="buttons">
+          <a href="{{searchURL}}">&laquo back to search results</a>
+          <div class="pull-right">
+            {{#actions object="document" category="modify"}}
+              <button type="button" class="btn btn-danger" data-action="remove">delete</button>
+              {{#if editing}}
+                <button type="button" class="btn" data-action="cancel">cancel</button>
+              {{else}}
+                <button type="button" class="btn" data-action="edit">edit</button>
+              {{/if}}
+            {{/actions}}
+          </div>
+        </div>
+        {{#if head.title}}
+          <h2>{{head.title}}</h2>
+        {{/if}}
+      {{else}}
+      <!-- loading icons -->
+      {{/fetch}}
+    {{/isolate}}
+    <div class="content">
+      {{#actions object="chunk" category="modify"}}
+        {{#if editing}}
+          {{#each listOfChunks}}
+            {{chunkToolbar}}
+            {{editChunk name=name}}
+          {{/each}}
+        {{else}}
+          {{#each listOfChunks}}
+            {{showChunk data=data}}
+          {{/each}}
+        {{/if}}
+      {{/actions}}
+    </div>
+    {{#isolate}}
+      {{#fetch document ignore="body"}}
+        <div class="form-actions">
+          {{#actions}}
+            {{#if editing}}
+              <button type="submit" class="btn btn-primary">
+                Save changes</button>
+              <button type="button" class="btn" data-action="addChunk">
+                Add chunk</button>
+            {{/if}}
+          {{/actions}}
+        </div>
+        <p>added on {{date meta.createdAt}} by {{username meta.createdBy}}</p>
+      {{/fetch}}
+    {{/isolate}}
+  </form>
+</template>

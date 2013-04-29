@@ -4,16 +4,23 @@ Meteor.startup(function () {
 
   Documents.remove({'meta.fake':true});
 
-  var docs = [];
-    /*{
-      title : 'very interesting problem',
-      body  : 'prove something that is interesting',
+  var docs = [
+    {
+      title : 'Home page',
+      alias : 'home',
+      body  : 'This is just another boaring home page.',
     },
     {
-      title : 'even more interesting problem',
-      body  : 'write a differential equation and solve it',
+      title : 'About us',
+      alias : 'about',
+      body  : 'Don\'t you know who we are?',
     },
-  ];*/
+    {
+      title : 'Contact us',
+      alias : 'contact',
+      body  : 'So you wanna contact us, right?',
+    },
+  ];
 
   var makeUser = function(name, email) {
     //TODO: check if email unique

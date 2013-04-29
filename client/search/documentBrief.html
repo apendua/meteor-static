@@ -1,0 +1,17 @@
+<template name="documentBrief">
+  <div class="document-wrapper brief">
+    <div class="buttons pull-right">
+      <a href="{{detailsURL}}" class="btn btn-primary btn-small">
+        view details &raquo
+      </a>
+    </div>
+    {{#if head.title}}
+      <h3>{{head.title}}</h3>
+    {{/if}}
+    <div class="content">
+      {{showChunk firstChunk}}
+    </div>
+    <div class="footer">
+    </div>
+  </div><!-- document-wrapper -->
+</template>
