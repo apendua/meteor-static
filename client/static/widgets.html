@@ -14,3 +14,11 @@
   </li>
 </template>
 
+<template name="staticPageNavigation">
+  <ul class="nav nav-list">
+    <li class="nav-header">Sections</li>
+    {{#each sections}}
+      <li class="{{class}}"><a href="#">{{title}}</a></li>
+    {{/each}}
+  </ul>
+</template>

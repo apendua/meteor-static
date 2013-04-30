@@ -76,6 +76,16 @@ Meteor.startup(function () {
     },
   ];
 
+  var leftPanel = [
+    {
+      widget: { module: 'static', name: 'navigation' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: null, // means current document
+      },
+    },
+  ];
+
   var makeUser = function(name, email) {
     //TODO: check if email unique
     var uid = undefined, user = Meteor.users.findOne({username:name});
@@ -134,8 +144,11 @@ Meteor.startup(function () {
   // SETTINGS
 
   makeSettings({
-    admins: [adminId, ],
-    navbar: navbar,
+    admins  : [adminId, ],
+    regions : {
+      'navbar'    : navbar,
+      'leftPanel' : leftPanel,
+    }
   });
 
 });

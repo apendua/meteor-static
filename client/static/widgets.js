@@ -1,16 +1,12 @@
 
-Template.staticPageDropdown.helpers({
-
-  sections: function () {
-    var sections = [];
-    _.each(this.body, function (chunk) {
-      if (chunk.type === 'section') {
-        sections.push(chunk);
-      }
-    });
-    return sections;
-  },
-
+Handlebars.registerHelper('sections', function () {
+  var sections = [];
+  _.each(this.body, function (chunk) {
+    if (chunk.type === 'section') {
+      sections.push(chunk);
+    }
+  });
+  return sections;
 });
 
 require('widgets', function (Widgets) {
@@ -20,6 +16,9 @@ require('widgets', function (Widgets) {
     type   : 'source',
     name   : 'document',
   }, function (config) {
+    if (!config.selector)
+      // return current document
+      return Documents.findOne({_id:Session.get('document')});
     return Documents.findOne(config.selector);
   });
 
