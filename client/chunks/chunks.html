@@ -6,7 +6,10 @@
 </template>
 
 <template name="chunk-section-edit">
-  <textarea id="{{chunkId}}" name="{{name}}">{{content}}</textarea>
+  <p><input type="text" placeholder="Section title" value="{{title}}"></p>
+  {{#ace mode='markdown'}}
+    <textarea id="{{chunkId}}" name="{{name}}">{{content}}</textarea>
+  {{/ace}}
 </template>
 
 <template name="chunk-markdown-show">

@@ -7,11 +7,10 @@
       <a href="{{searchURL}}">&laquo back to search results</a>
       <div class="pull-right">
         {{#actions object="document" category="modify"}}
-          <button type="button" class="btn btn-danger" data-action="remove">delete</button>
           {{#if editing}}
-            <button type="button" class="btn" data-action="cancel">cancel</button>
+            <button type="button" class="btn btn-link" data-action="cancel">cancel</button>
           {{else}}
-            <button type="button" class="btn" data-action="edit">edit</button>
+            <button type="button" class="btn btn-link" data-action="edit">edit</button>
           {{/if}}
         {{/actions}}
       </div>
@@ -20,9 +19,18 @@
       <h2>{{head.title}}</h2>
     {{/if}}
     <div class="content">
-      {{#each body}}
-        {{showChunk}}
-      {{/each}}
+      {{#if editing}}
+        {{#each body}}
+          <div class="editor">
+            {{chunkToolbar}}
+            {{editChunk}}
+          </div>
+        {{/each}}
+      {{else}}
+        {{#each body}}
+          {{showChunk}}
+        {{/each}}
+      {{/if}}
     </div>
     <div class="form-actions">
       {{#actions}}
