@@ -4,6 +4,7 @@
 </template>
 
 <template name="navigation">
+
   <div class="well" style="padding: 8px 0;">
     <ul class="nav nav-list">
       <li class="nav-header">Available pages</li>
@@ -15,4 +16,11 @@
       <li><a href="#">Library</a></li>
     </ul>
   </div>
+
+  <div class="well" style="padding: 8px 0;">
+    {{#widgets region='leftPanel'}}
+      {{showWidget}}
+    {{/widgets}}
+  </div>
+  
 </template>
