@@ -1,28 +1,17 @@
 
 // DOCUMENT RELATED ACTIONS
 
-require(['document'], function (doc) {
+require('page', function (page) {
 
   // DOCUMENT ACTIONS
-
-  Actions.register({
-    object   : 'document',
-    category : 'annotate',
-    action   : 'nextVariant',
-  }, function () {
-    Meteor.call('nextVariant', doc.getId(), function (err, varId) {
-      if (!err)
-        doc.setVariant(varId);
-    });
-  });
 
   Actions.register({
     object   : 'document',
     category : 'modify',
     action   : 'cancel',
   }, function (event) {
-    doc.reload();
-    doc.setEditing(false);
+    // reload cache
+    page.setEditing(false);
   });
 
   Actions.register({
@@ -30,7 +19,7 @@ require(['document'], function (doc) {
     category : 'modify',
     action   : 'edit',
   }, function (event) {
-    doc.setEditing(true);
+    page.setEditing(true);
   });
 
   Actions.register({
@@ -42,7 +31,7 @@ require(['document'], function (doc) {
     chunks.push({
       type    : 'math',
       content : '[chunk content]'
-    }, {parent : doc.getId()});
+    }, {parent : page.getId()});
   });
 
   // CHUNK ACTIONS
@@ -52,7 +41,7 @@ require(['document'], function (doc) {
     category : 'modify',
     action   : 'moveDown',
   }, function (event) {
-    doc.chunks().moveForward({_id:this._id});
+    page.chunks().moveForward({_id:this._id});
   });
 
   Actions.register({
@@ -60,7 +49,7 @@ require(['document'], function (doc) {
     category : 'modify',
     action   : 'moveUp',
   }, function (event) {
-    doc.chunks().moveBackward({_id:this._id});
+    page.chunks().moveBackward({_id:this._id});
   });
 
   Actions.register({
@@ -68,7 +57,7 @@ require(['document'], function (doc) {
     category : 'modify',
     action   : 'remove',
   }, function (event) {
-    doc.chunks().remove({_id:this._id});
+    page.chunks().remove({_id:this._id});
   });
 
   // ALLOW / DENY RULES
@@ -80,7 +69,7 @@ require(['document'], function (doc) {
   }, function (userId) {
     var unsolved = VariantHistory.find({
       createdBy : userId,
-      link      : doc.getId(),
+      link      : page.getId(),
       good      : {$exists:false}
     }).count();
     return unsolved < 3;
