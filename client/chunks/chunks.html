@@ -1,3 +1,24 @@
+
+<template name="chunk-section-show">
+  <div class="page-header">
+    <h1>{{title}} <small>{{content}}</small></h1>
+  </div>
+</template>
+
+<template name="chunk-section-edit">
+  <textarea id="{{chunkId}}" name="{{name}}">{{content}}</textarea>
+</template>
+
+<template name="chunk-markdown-show">
+  {{pagedown content}}
+</template>
+
+<template name="chunk-markdown-edit">
+  {{#ace mode='markdown'}}
+    <textarea id="{{chunkId}}" name="{{name}}">{{content}}</textarea>
+  {{/ace}}
+</template>
+
 <template name="chunk-text-show">
   <div>
     {{pagedown content}}
