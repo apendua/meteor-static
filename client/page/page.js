@@ -1,14 +1,56 @@
 
 // PAGE API
 
-define('page', [], function () {
+define('page', ['model', ], function () {
+
+  var dependency = new Deps.Dependency;
+  var chunks = new Meteor.Collection (null);
+  var lock = false;
+  var doc = null;
+
+  var update = function (_doc) {
+    if (EJSON.equals(doc, _doc)) return;
+    doc = _doc;
+    dependency.changed();
+    if (!doc) return;
+    //----------------------------------------
+    _.each(doc.body, function (chunk, index) {
+      chunks.insert(_.extend(chunk, {
+        index : index,
+      }), function (err) {
+        if (err) {
+          //TODO: do smoething wise
+        }
+      });
+    });
+  };
+
+  var getId = function () {
+    return Session.get('docId');
+  };
+
+  var fetch = function (doc) {
+    return Documents.findOne({_id:getId()});
+  };
+
+  Deps.autorun(function () {
+    if (!lock)
+      update(fetch());
+  });
 
   return {
+    setLock: function (value) {
+      lock = value;
+    },
+    reload: function () {
+      update(this.fetch());
+    },
     fetch: function () {
-      return Documents.findOne({_id:this.getId()});
+      Deps.depend(dependency);
+      return doc;
     },
     getId: function () {
-      return Session.get('docId');
+      return getId();
     },
     setId: function (value) {
       Session.set('docId', value);
@@ -18,6 +60,7 @@ define('page', [], function () {
     },
     setEditing: function (value) {
       Session.set('edit', value);
+      this.setLock(value);
     },
   };
 
