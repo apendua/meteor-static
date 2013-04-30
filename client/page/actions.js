@@ -27,7 +27,7 @@ require('page', function (page) {
     category : 'modify',
     action   : 'addChunk',
   }, function (event) {
-    var chunks = doc.chunks();
+    var chunks = page.chunks();
     chunks.push({
       type    : 'math',
       content : '[chunk content]'
