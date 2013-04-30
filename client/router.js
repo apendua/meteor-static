@@ -34,11 +34,9 @@ Meteor.Router.add({
 		Session.set('page', query.page);
 		return 'search';
 	}},
-	'/page/:_id': { as: 'page', to: function (docId) {
-		var doc = Documents.findOne({_id:docId});
-		if (doc)
-			Session.set('document', doc._id);
-		return 'page';
+	'/page/:_id': { to: 'page', and: function (docId) {
+		Session.set('document', docId);
+		console.log('rendering page', docId);
 	}},
 	'/': function () {
 		var query = $.deparam(this.querystring);

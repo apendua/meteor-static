@@ -1,17 +1,10 @@
 
 /*
-  admins : [],
+  admins : [list of user IDs],
+  navbar : [list of widgets],
 */
 
 Settings = new Meteor.Collection ("settings");
-
-/*
-  owner     : '',
-  createdAt : '',
-  members   : [],
-*/
-
-Groups = new Meteor.Collection ("groups");
 
 /*
   createdAt : '',
@@ -76,36 +69,10 @@ if (Meteor.isClient) {
   rank : 0,
 */
 
-Variants = new Meteor.Collection ("variants");
-
-VariantHistory = new Meteor.Collection("history");
-
-/*
-  createdBy : '',
-  createdAt : '',
-  answer    : {},
-  data      : {},
-  good      : true/false,
-*/
-
-Records = new Meteor.Collection("records");
-
-/*
-  createdBy : '',
-  createdAt : '',
-  index     : 0,
-  step      : 1,
-  link      : (document)
-*/
-
 define('model', [], function () {
   return {
     settings       : Settings,
-    groups         : Groups,
     tags           : Tags,
-    variants       : Variants,
-    variantHistory : VariantHistory,
-    records        : Records,
     documents      : Documents,
   }
 });
