@@ -18,7 +18,7 @@ require('widgets', function (Widgets) {
   }, function (config) {
     if (!config.selector)
       // return current document
-      return Documents.findOne({_id:Session.get('document')});
+      return Documents.findOne({_id:Session.get('docId')});
     return Documents.findOne(config.selector);
   });
 

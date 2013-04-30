@@ -26,25 +26,29 @@ makeSearchPath = function (options) {
 	return Meteor.Router.searchPath() + '?' + getQueryString(options);
 };
 
-Meteor.Router.add({
-	'/search': { as: 'search', to: function () {
-		var query = $.deparam(this.querystring);
-		Session.set('keywords', query.keywords);
-		Session.set('document', undefined);
-		Session.set('page', query.page);
-		return 'search';
-	}},
-	'/page/:_id': { to: 'page', and: function (docId) {
-		Session.set('document', docId);
-		console.log('rendering page', docId);
-	}},
-	'/': function () {
-		var query = $.deparam(this.querystring);
-		Session.set('document', undefined);
-		return 'search';
-	},
-	'*': function () {
-		Session.set('document', undefined);
-		return 'not_found';
-	},
+require('page', function (page) {
+
+	Meteor.Router.add({
+		'/search': { as: 'search', to: function () {
+			var query = $.deparam(this.querystring);
+			Session.set('keywords', query.keywords);
+			page.setId(pageId);
+			return 'search';
+		}},
+		'/page/:_id': { to: 'page', and: function (pageId) {
+			var query = $.deparam(this.querystring);
+			page.setEditing(query.edit);
+			page.setId(pageId);
+		}},
+		'/': function () {
+			var query = $.deparam(this.querystring);
+			page.setId(undefined);
+			return 'search';
+		},
+		'*': function () {
+			page.setId(undefined);
+			return 'not_found';
+		},
+	});
+
 });
