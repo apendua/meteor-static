@@ -10,45 +10,70 @@ Meteor.startup(function () {
       alias : 'home',
       body  : [
         {
-          type    : 'math',
+          type    : 'section',
+          title   : 'Home page',
           content : 'Home page',
         },
         {
-          type    : 'math',
+          type    : 'markdown',
           content : 'This is just another boaring home page.',
         },
         {
-          type    : 'math',
+          type    : 'section',
+          title   : 'About us',
           content : 'About us',
         },
         {
-          type    : 'math',
+          type    : 'markdown',
           content : 'Don\'t you know who we are?',
         },
         {
-          type    : 'math',
+          type    : 'section',
+          title   : 'About them',
           content : 'About them',
         },
         {
-          type    : 'math',
+          type    : 'markdown',
           content : 'Don\'t you know who they are?',
         },
         {
-          type    : 'math',
+          type    : 'section',
+          title   : 'Contact us',
           content : 'Contact us',
         },
         {
-          type    : 'math',
+          type    : 'markdown',
           content : 'So you wanna contact us, right?',
         },
       ]
     },
     {
-      title : 'Documentation',
+      title : 'Docs',
       alias : 'docs',
       body  : 'This is a very simple documentation page',
     },
    
+  ];
+
+  var navbar = [
+    {
+      widget: { module: 'static', name: 'dropdown' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: {
+          'head.title': 'Home page',
+        },
+      },
+    },
+    {
+      widget: { module: 'static', name: 'dropdown' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: {
+          'head.title': 'Docs',
+        },
+      },
+    },
   ];
 
   var makeUser = function(name, email) {
@@ -62,6 +87,7 @@ Meteor.startup(function () {
       //gravatar : '' + Gravatar.hash(email),
       isFake   : true,
     }});
+    return uid;
   };
 
   var makeDocs = function (docs) {
@@ -91,9 +117,25 @@ Meteor.startup(function () {
     return IDs;
   };
 
+  var makeSettings = function (options) {
+    var settings = Settings.findOne({});
+    if (!settings) {
+      return Settings.insert(options);
+    }
+    Settings.update({_id:settings._id}, options);
+    return settings._id;
+  };
+
   makeDocs(docs);
   
-  makeUser('admin', 'admin@fake.org');
-  makeUser('guest', 'guest@fake.org');
+  var adminId = makeUser('admin', 'admin@fake.org');
+  var guestId = makeUser('guest', 'guest@fake.org');
+
+  // SETTINGS
+
+  makeSettings({
+    admins: [adminId, ],
+    navbar: navbar,
+  });
 
 });

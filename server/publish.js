@@ -14,3 +14,8 @@ Meteor.publish('documents', function () {
   //    {status:'published'},
   //  ]});
 });
+
+Meteor.publish('settings', function () {
+  //TODO: only publish active settings to users
+  return Settings.find({});
+});

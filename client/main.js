@@ -1,4 +1,5 @@
 
+Meteor.subscribe("settings");
 Meteor.subscribe("documents");
 Meteor.subscribe("users");
 
