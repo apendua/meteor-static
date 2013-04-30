@@ -31,7 +31,7 @@ require('page', function (page) {
     chunks.push({
       type    : 'math',
       content : '[chunk content]'
-    }, {parent : page.getId()});
+    });
   });
 
   // CHUNK ACTIONS
@@ -41,7 +41,7 @@ require('page', function (page) {
     category : 'modify',
     action   : 'moveDown',
   }, function (event) {
-    page.chunks().moveForward({_id:this._id});
+    page.chunks.moveForward({_id:this._id});
   });
 
   Actions.register({
@@ -49,7 +49,7 @@ require('page', function (page) {
     category : 'modify',
     action   : 'moveUp',
   }, function (event) {
-    page.chunks().moveBackward({_id:this._id});
+    page.chunks.moveBackward({_id:this._id});
   });
 
   Actions.register({
@@ -57,23 +57,10 @@ require('page', function (page) {
     category : 'modify',
     action   : 'remove',
   }, function (event) {
-    page.chunks().remove({_id:this._id});
+    page.chunks.remove({_id:this._id});
   });
 
   // ALLOW / DENY RULES
-
-  Actions.allow({
-    object   : 'document',
-    category : 'annotate',
-    action   : 'nextVariant',
-  }, function (userId) {
-    var unsolved = VariantHistory.find({
-      createdBy : userId,
-      link      : page.getId(),
-      good      : {$exists:false}
-    }).count();
-    return unsolved < 3;
-  });
 
   Actions.deny({
     object   : 'document',

@@ -20,12 +20,14 @@
     {{/if}}
     <div class="content">
       {{#if editing}}
-        {{#each body}}
-          <div class="editor">
-            {{chunkToolbar}}
-            {{editChunk}}
-          </div>
-        {{/each}}
+        {{#actions object="chunk" category="modify"}}
+          {{#each chunks}}
+            <div class="editor">
+              {{chunkToolbar}}
+              {{editChunk}}
+            </div>
+          {{/each}}
+        {{/actions}}
       {{else}}
         {{#each body}}
           {{showChunk}}

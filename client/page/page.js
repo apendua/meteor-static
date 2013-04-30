@@ -4,7 +4,7 @@
 define('page', ['model', ], function () {
 
   var dependency = new Deps.Dependency;
-  var chunks = new Meteor.Collection (null);
+  var chunks = new Meteor.List (null);
   var lock = false;
   var doc = null;
 
@@ -15,7 +15,7 @@ define('page', ['model', ], function () {
     if (!doc) return;
     //----------------------------------------
     _.each(doc.body, function (chunk, index) {
-      chunks.insert(_.extend(chunk, {
+      chunks.push(chunk);_.extend(chunk, {
         index : index,
       }), function (err) {
         if (err) {
@@ -39,6 +39,8 @@ define('page', ['model', ], function () {
   });
 
   return {
+    chunks: chunks,
+    //-------------------------
     setLock: function (value) {
       lock = value;
     },
@@ -90,6 +92,7 @@ require('page', function (page) {
   Template.page.helpers({
     'document' : _.bind(page.fetch, page),
     'editing'  : _.bind(page.editing, page),
+    'chunks'   : page.chunks.find({}),
   });
 });
 
