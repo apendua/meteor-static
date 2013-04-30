@@ -9,3 +9,15 @@ Handlebars.registerHelper('showWidget', function () {
 
   return new Handlebars.SafeString(widget.render(source.fetch(this.config)) || '');
 });
+/*
+Handlebars.registerHelper('widget', function (options) {
+  
+  //TODO: use helper context as source
+
+  var widget = Meteor.widgets.findOne(options.hash);
+  var source = widget;
+
+  return new Handlebars.SafeString(widget.render(source.fetch(this.config)) || '');
+
+});
+*/
