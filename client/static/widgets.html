@@ -1,0 +1,16 @@
+
+<template name="staticPageDropdown">
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      {{head.title}} <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      {{#each sections}}
+        <li role="presentation">
+          <a role="menuitem" href="#">{{title}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </li>
+</template>
+
