@@ -8,18 +8,47 @@ Meteor.startup(function () {
     {
       title : 'Home page',
       alias : 'home',
-      body  : 'This is just another boaring home page.',
+      body  : [
+        {
+          type    : 'math',
+          content : 'Home page',
+        },
+        {
+          type    : 'math',
+          content : 'This is just another boaring home page.',
+        },
+        {
+          type    : 'math',
+          content : 'About us',
+        },
+        {
+          type    : 'math',
+          content : 'Don\'t you know who we are?',
+        },
+        {
+          type    : 'math',
+          content : 'About them',
+        },
+        {
+          type    : 'math',
+          content : 'Don\'t you know who they are?',
+        },
+        {
+          type    : 'math',
+          content : 'Contact us',
+        },
+        {
+          type    : 'math',
+          content : 'So you wanna contact us, right?',
+        },
+      ]
     },
     {
-      title : 'About us',
-      alias : 'about',
-      body  : 'Don\'t you know who we are?',
+      title : 'Documentation',
+      alias : 'docs',
+      body  : 'This is a very simple documentation page',
     },
-    {
-      title : 'Contact us',
-      alias : 'contact',
-      body  : 'So you wanna contact us, right?',
-    },
+   
   ];
 
   var makeUser = function(name, email) {
@@ -45,9 +74,9 @@ Meteor.startup(function () {
       // parse slide meta
       docMeta.type = docData.type || 'problem';
       // parse slide body
-      if (typeof docData.body === 'array')
+      if (_.isArray(docData.body))
         docBody = docData.body;
-      else if (typeof docData.body === 'string')
+      else if (_.isString(docData.body))
         docBody = [{
           type    : 'math',
           content : docData.body,
