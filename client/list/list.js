@@ -1,73 +1,70 @@
 
-Meteor.Subcollection = function (name, cursor) {
-  Meteor.Collection.call(this, null); // noname
+Meteor.List = function () {
+
+  Meteor.Collection.apply(this, arguments);
+  
+  this._blacklist = ['_idx', ];
+
   var self = this;
-  self._blacklist = ['parent', 'index', ];
-  //TODO: what should we do if item is not an object?
-  cursor.observeChanges({
+  var indexCache = {};
+
+  this.indexOf = function (id) {
+    //TODO: make it into reactive data source
+    return indexCache[id] || -1;
+  };
+
+  Meteor.Collection.prototype.find.call(self, {}).observeChanges({
     added: function (id, fields) {
-      _.each(fields[name], function (item, index) {
-        self.insert(_.extend(item, {
-          parent : id,
-          index  : index,
-        }) , function (err) {
-          if (err) {
-          }
-        });
-      });
+      indexCache[id] = fields._idx;
     },
     changed: function (id, fields) {
-      //TODO: what if they don't have id's???
-      _.each(fields[name], function (item, index) {
-        self.update({_id:item._id}, {$set:_.extend(item, {
-          parent : id,
-          index  : index,
-        })});
-      });
+      if (_.has(fields, '_idx'))
+        indexCache[id] = fields._idx;
     },
     removed: function (id) {
-      self.remove({parent:id});
+      delete indexCache[id];
     },
   });
 };
 
-Meteor.Subcollection.prototype = Object.create(Meteor.Collection.prototype);
+Meteor.List.prototype = Object.create(Meteor.Collection.prototype);
 
-Meteor.Subcollection.prototype.push = function (item, options) {
-  var lastItem  = this.findOne({parent:options.parent}, {sort:{index:-1}});
-  var lastIndex = lastItem !== undefined ? lastItem.index : -1;
+Meteor.List.prototype.push = function (item) {
+  var lastItem  = this.findOne({}, {sort:{_idx:-1}});
+  var lastIndex = lastItem !== undefined ? lastItem._idx : -1;
   this.insert(_.extend(item, {
-    parent : options.parent,
-    index  : lastIndex + 1,
+    _idx : lastIndex + 1,
   }));
 };
 
-Meteor.Subcollection.prototype.moveForward = function (selector) {
+//TODO: find better names for moving routines
+//TODO: add cycle shift feature (between two indices)
+//TODO: implement moveTo routine
+Meteor.List.prototype.moveForward = function (selector) {
   var prev = this.findOne(selector);
   if (prev) {
-    var next = this.findOne({parent:prev.parent,index:{$gt:prev.index}},{sort:{index:1}});
+    var next = this.findOne({parent:prev.parent,_idx:{$gt:prev._idx}},{sort:{_idx:1}});
     if (next) {
-      this.update({_id:prev._id},{$set:{index:next.index}});
-      this.update({_id:next._id},{$set:{index:prev.index}});
+      this.update({_id:prev._id},{$set:{_idx:next._idx}});
+      this.update({_id:next._id},{$set:{_idx:prev._idx}});
     }
   }
 };//moveForward
 
-Meteor.Subcollection.prototype.moveBackward = function (selector) {
+Meteor.List.prototype.moveBackward = function (selector) {
   var next = this.findOne(selector);
   if (next) {
-    var prev = this.findOne({parent:next.parent,index:{$lt:next.index}},{sort:{index:-1}});
+    var prev = this.findOne({parent:next.parent,_idx:{$lt:next._idx}},{sort:{_idx:-1}});
     if (prev) {
-      this.update({_id:prev._id},{$set:{index:next.index}});
-      this.update({_id:next._id},{$set:{index:prev.index}});
+      this.update({_id:prev._id},{$set:{_idx:next._idx}});
+      this.update({_id:next._id},{$set:{_idx:prev._idx}});
     }
   }
-};//moveBackwards
+};//moveBackward
 
-//TODO: think of a better name for this function
-Meteor.Subcollection.prototype.find = function (selector, options) {
+Meteor.List.prototype.find = function (selector, options) {
   // returns fake cursor that ignores changes of index
-  options = options || {}; options.sort = options.sort || {index:1};
+  options = options || {}; options.sort = options.sort || {_idx:1};
   var cursor = Meteor.Collection.prototype.find.call(this, selector, options);
 
   var self = this;
@@ -93,6 +90,6 @@ Meteor.Subcollection.prototype.find = function (selector, options) {
   return cursor;
 };// listOfItems
 
-define('subcollection', [], function () {
-  return Meteor.Subcollection;
+define('list', [], function () {
+  return Meteor.List;
 });
