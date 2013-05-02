@@ -1,0 +1,23 @@
+
+<template name="dashboard">
+{{#each regions}}
+  <section id="{{name}}">
+    <div class="page-header">
+      <h1>{{name}}</h1>
+    </div>
+    {{#widgets region=name}}
+      <h2>{{widget.module}}/{{widget.name}}</h2>
+      <div class="well">
+        {{showWidget}}
+      </div>
+    {{/widgets}}
+  </section>
+{{/each}}
+</template>
+
+<template name="dashboardToolbox">
+  <ul class="nav nav-list">
+    <li class="nav-header">Dashboard</li>
+    <li><a href="{{dashboardPath}}">Dashboard</a></li>
+  </ul>
+</template>
