@@ -13,7 +13,8 @@ define('page', ['model', ], function () {
     doc = _doc;
     dependency.changed();
     if (!doc) return;
-    //---------------------------------
+    //----------------
+    chunks.remove({});
     _.each(doc.body, function (chunk) {
       chunks.push(chunk);
     });
@@ -39,7 +40,7 @@ define('page', ['model', ], function () {
       lock = value;
     },
     reload: function () {
-      update(this.fetch());
+      update(fetch());
     },
     fetch: function () {
       Deps.depend(dependency);
@@ -79,7 +80,7 @@ require('page', function (page) {
       });
       //-----------------------------------------------------
       Documents.update({_id:page.getId()},{$set:{body:body}});
-      doc.setEditing(false);
+      page.setEditing(false);
     },
   });
 

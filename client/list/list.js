@@ -64,7 +64,7 @@ Meteor.List.prototype.moveBackward = function (selector) {
 
 Meteor.List.prototype.find = function (selector, options) {
   // returns fake cursor that ignores changes of index
-  options = options || {}; options.sort = options.sort || {_idx:-1};
+  options = options || {}; options.sort = options.sort || {_idx:1};
   var cursor = Meteor.Collection.prototype.find.call(this, selector, options);
 
   var self = this;

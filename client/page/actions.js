@@ -10,7 +10,7 @@ require('page', function (page) {
     category : 'modify',
     action   : 'cancel',
   }, function (event) {
-    // reload cache
+    page.reload();
     page.setEditing(false);
   });
 
