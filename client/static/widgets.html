@@ -10,8 +10,11 @@
       {{#each pages}}
         {{> staticPageNavListItem}}
       {{/each}}
-      <li class="nav-header">Admin actions</li>
-      <li><a href="#">Add page</a></li>
+      <li class="nav-header">Actions</li>
+      {{#actions module="static" object="module" type="modify"}}
+        <li><a href="#" data-action="createPage">Create page</a></li>
+        <li><a href="#" data-action="removePage">Delete page</a></li>
+      {{/actions}}
     </ul>
   </div>
 </template>
