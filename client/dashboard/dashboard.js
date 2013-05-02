@@ -12,6 +12,13 @@ Widgets.instance('dashboard', {
 
 Widgets.register({
   module : 'dashboard',
+  name   : 'navbar',
+}, {
+
+});
+
+Widgets.register({
+  module : 'dashboard',
   name   : 'toolbox',
 }, {
   render: function (data) {
@@ -23,30 +30,19 @@ Widgets.register({
 
 Template.dashboard.helpers({
   'regions': function () {
-    var settings = Settings.findOne({});
-    var regions = [];
-
-    if (settings) {
-      _.each(settings.regions, function (value, key) {
-        regions.push({
-          name: key,
-        });
-      });
-    }
-
-    return regions;
+    return Dashboard.find({});
   }
 });
 
-Handlebars.registerHelper('widgets', function (options) {
+Handlebars.registerHelper('eachWidget', function (options) {
   
   //TODO: use helper context as source
 
-  var settings = Settings.findOne({});
+  var region = Dashboard.findOne(options.hash);
   var widgets = null;
 
-  if (settings)
-    widgets = settings.regions[options.hash.region];
+  if (region)
+    widgets = region.widgets;
 
   var buffer = '';
   _.each(widgets, function (widget, index) {

@@ -3,14 +3,14 @@
 {{#each regions}}
   <section id="{{name}}">
     <div class="page-header">
-      <h1>{{name}}</h1>
+      <h1>{{title}}</h1>
     </div>
-    {{#widgets region=name}}
+    {{#each widgets}}
       <h2>{{widget.module}}/{{widget.name}}</h2>
       <div class="well">
         {{showWidget}}
       </div>
-    {{/widgets}}
+    {{/each}}
   </section>
 {{/each}}
 </template>

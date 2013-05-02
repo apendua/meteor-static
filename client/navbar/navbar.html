@@ -9,9 +9,9 @@
       </button>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          {{#widgets region='navbar'}}
+          {{#eachWidget region='topPanel'}}
             {{showWidget}}
-          {{/widgets}}
+          {{/eachWidget}}
           <li class="divider-vertical"></li>
           <li class="dropdown">
             {{> accountMenu}}
