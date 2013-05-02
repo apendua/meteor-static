@@ -1,5 +1,6 @@
 
 var widgets = {}; // private cache
+var instances = {};
 
 Meteor.widgets = new Meteor.Collection(null, {
   transform: function (data) {
@@ -43,6 +44,17 @@ _.extend(Widgets, {
 
     widget.render = options.render || widget.render;
     widget.fetch  = options.fetch  || widget.fetch;
+  },
+
+  instance: function (name, options) {
+    //TODO: let it be reactive ;)
+    if (options === undefined)
+      return instances[name];
+    
+    if (_.has(instances, name))
+      throw new Error('Error: widget instance ' + name + ' already exists');
+    //TODO: validate options
+    instances[name] = options;
   },
 
 });
