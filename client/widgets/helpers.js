@@ -15,6 +15,11 @@ Handlebars.registerHelper('showWidget', function (context, options) {
 
   return new Handlebars.SafeString(widget.render(source.fetch(context.config)) || '');
 });
+
+Handlebars.registerHelper('widgetToolbar', function () {
+  return new Handlebars.SafeString(Template.widgetToolbar(this));
+});
+
 /*
 Handlebars.registerHelper('editWidget', function () {
 

@@ -1,0 +1,59 @@
+
+<template name="dashboardRegion">
+  <form>
+  {{#with region}}
+    <div class="page-header">
+      <h1>{{title}} <small>{{region.region}}</small></h1>
+    </div>
+    {{#each widgets}}
+      {{> dashboardEditWidget}}
+    {{/each}}
+    <div class="form-actions">
+      {{#actions category="dashboard" object="region" type="modify"}}
+        <button type="submit" class="btn btn-primary">
+          Save changes</button>
+        <button type="button" class="btn" data-action="addWidget">
+          Add widget</button>
+      {{/actions}}
+    </div>
+  {{/with}}
+  </form>
+</template>
+
+<template name="regionTopPanel">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          {{#each widgets}}
+            {{showWidget}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="regionLeftPanel">
+  <div class="">
+    {{#each widgets}}
+      {{showWidget}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="dashboardEditWidget">
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Preview</a></li>
+        <li class=""><a href="#">Edit</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active">
+        {{preview}}
+      </div>
+    </div>
+  </div>
+</template>
+
+

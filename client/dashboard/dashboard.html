@@ -1,23 +1,22 @@
 
 <template name="dashboard">
-{{#each regions}}
-  <section id="{{name}}">
-    <div class="page-header">
-      <h1>{{title}}</h1>
-    </div>
-    {{#each widgets}}
-      <h2>{{widget.module}}/{{widget.name}}</h2>
-      <div class="well">
-        {{showWidget}}
+  {{#each regions}}
+    <section id="{{name}}">
+      <div class="page-header">
+        <h1>{{title}} <small>{{region}}</small></h1>
       </div>
-    {{/each}}
-  </section>
-{{/each}}
+      {{render template}}
+    </section>
+  {{/each}}
 </template>
 
 <template name="dashboardToolbox">
   <ul class="nav nav-list">
     <li class="nav-header">Dashboard</li>
-    <li><a href="{{dashboardPath}}">Dashboard</a></li>
+    <li><a href="{{dashboardPath}}">Quick preview</a></li>
+    <li class="nav-header">Edit regions</li>
+    {{#each regions}}
+      <li><a href="{{dashboardRegionPath this}}">{{title}}</a></li>
+    {{/each}}
   </ul>
 </template>

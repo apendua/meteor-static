@@ -12,26 +12,16 @@ Widgets.instance('dashboard', {
 
 Widgets.register({
   module : 'dashboard',
-  name   : 'navbar',
-}, {
-
-});
-
-Widgets.register({
-  module : 'dashboard',
   name   : 'toolbox',
 }, {
   render: function (data) {
     return new Handlebars.SafeString(Template.dashboardToolbox(data));
   },
-});
-
-//TODO: find a rigth place for this helper
-
-Template.dashboard.helpers({
-  'regions': function () {
-    return Dashboard.find({});
-  }
+  fetch: function (config) {
+    return {
+      regions: Dashboard.find({}),
+    };
+  },
 });
 
 Handlebars.registerHelper('eachWidget', function (options) {
