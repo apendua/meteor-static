@@ -7,6 +7,7 @@ Template.signIn.events({
       if (err)
         Session.set('loginMessage', 'Error: ' + err.reason);
       else {
+        $(event.target).find('input[name=password]').val(''); // for sfety
         Session.set('loginMessage', undefined);
         $('#' + self.id).modal('hide');
       }
