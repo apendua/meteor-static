@@ -25,7 +25,7 @@ Meteor.publish("dashboard", function () {
 
 Meteor.startup(function () {
 
-  var makeRegion = function (name, options) {
+  var ensureRegion = function (name, options) {
     var region = Dashboard.findOne({region:name});
     if (!region) {
       Dashboard.insert({
@@ -38,12 +38,48 @@ Meteor.startup(function () {
 
   //Dashboard.remove({});
 
-  makeRegion('topPanel', {
+  ensureRegion('topPanel', {
     title: 'Top panel',
   });
 
-  makeRegion('leftPanel', {
+  ensureRegion('leftPanel', {
     title: 'Side panel',
   });
+
+  // FAKE WIDGETS
+
+  var topPanel = [
+    {
+      widget: { module: 'static', name: 'dropdown' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: {
+          'head.title': 'Home page',
+        },
+      },
+    },
+    {
+      widget: { module: 'static', name: 'dropdown' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: {
+          'head.title': 'Docs',
+        },
+      },
+    },
+  ];
+
+  var leftPanel = [
+    {
+      widget: { module: 'static', name: 'navigation' },
+      source: { module: 'static', name: 'document' },
+      config: {
+        selector: null, // means current document
+      },
+    },
+  ];
+
+  Dashboard.update({region:'topPanel'}, {$set:{widgets:topPanel}});
+  Dashboard.update({region:'leftPanel'}, {$set:{widgets:leftPanel}});
 
 });

@@ -55,37 +55,6 @@ Meteor.startup(function () {
    
   ];
 
-  var navbar = [
-    {
-      widget: { module: 'static', name: 'dropdown' },
-      source: { module: 'static', name: 'document' },
-      config: {
-        selector: {
-          'head.title': 'Home page',
-        },
-      },
-    },
-    {
-      widget: { module: 'static', name: 'dropdown' },
-      source: { module: 'static', name: 'document' },
-      config: {
-        selector: {
-          'head.title': 'Docs',
-        },
-      },
-    },
-  ];
-
-  var leftPanel = [
-    {
-      widget: { module: 'static', name: 'navigation' },
-      source: { module: 'static', name: 'document' },
-      config: {
-        selector: null, // means current document
-      },
-    },
-  ];
-
   var makeUser = function(name, email) {
     //TODO: check if email unique
     var uid = undefined, user = Meteor.users.findOne({username:name});
@@ -146,8 +115,8 @@ Meteor.startup(function () {
   makeSettings({
     admins  : [adminId, ],
     regions : {
-      'navbar'    : navbar,
-      'leftPanel' : leftPanel,
+      'navbar'    : [],
+      'leftPanel' : [],
     }
   });
 
