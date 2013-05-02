@@ -30,10 +30,10 @@ Meteor.List = function () {
 Meteor.List.prototype = Object.create(Meteor.Collection.prototype);
 
 Meteor.List.prototype.push = function (item) {
-  var lastItem  = this.findOne({}, {sort:{_idx:-1}});
-  var lastIndex = lastItem !== undefined ? lastItem._idx : -1;
+  var lastItem = this.findOne({}, {reactive:false, sort:{_idx:-1}});
+  var lastIdx  = lastItem !== undefined ? lastItem._idx : -1;
   this.insert(_.extend(item, {
-    _idx : lastIndex + 1,
+    _idx : lastIdx + 1,
   }));
 };
 

@@ -13,15 +13,9 @@ define('page', ['model', ], function () {
     doc = _doc;
     dependency.changed();
     if (!doc) return;
-    //----------------------------------------
-    _.each(doc.body, function (chunk, index) {
-      chunks.push(chunk);_.extend(chunk, {
-        index : index,
-      }), function (err) {
-        if (err) {
-          //TODO: do smoething wise
-        }
-      });
+    //---------------------------------
+    _.each(doc.body, function (chunk) {
+      chunks.push(chunk);
     });
   };
 
