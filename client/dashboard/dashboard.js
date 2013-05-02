@@ -1,7 +1,11 @@
 
-Dashboard = new Meteor.Collection ("dashboard");
+Dashboard = new Meteor.Collection ('dashboard');
 
-Meteor.subscribe("dashboard");
+Meteor.subscribe('dashboard');
+
+define('dashboard', [], function () {
+  return {};
+});
 
 require('widgets', function () {
 

@@ -17,15 +17,26 @@ Template.dashboard.helpers({
 
 Template.dashboardRegion.helpers({
   'region': function () {
-    return Dashboard.findOne({region:Session.get('dashboardRegion')});
+    var cache = require('dashboard/editing');
+    if (cache) {
+      return cache.getActive();
+    }
+    return {};
+    //return Dashboard.findOne({region:Session.get('dashboardRegion')});
   },
 });
 
 Template.dashboardRegion.events({
   'submit form': function (event) {
-    var $form = $(event.target);
-    console.log('saving data');
-    event.preventDefault();
+    var dashboard = require('dashboard/editing');
+    if (dashboard) {
+      var $form = $(event.target);
+      dashboard[this.region].save(function (data) {
+        console.log(data.widgets);
+        Dashboard.update({_id:data._id}, {$set:{widgets:data.widgets}});
+      });
+      event.preventDefault();
+    }
   },
 });
 
