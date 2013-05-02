@@ -1,30 +1,12 @@
 
-<template name="navListItem">
-  <li class="{{class}}"><a href="{{pagePath this}}">{{head.title}}</a></li>
-</template>
 
 <template name="navigation">
 
-  <div class="well" style="padding: 8px 0;">
-    <ul class="nav nav-list">
-      <li class="nav-header">Available pages</li>
-      {{#each pages}}
-        {{> navListItem}}
-      {{/each}}
-      <li class="nav-header">Fake items</li>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Library</a></li>
-    </ul>
-  </div>
+  {{#eachWidget region='leftPanel'}}
+    {{showWidget}}
+  {{/eachWidget}}
 
-  <div class="well" style="padding: 8px 0;">
-    {{#eachWidget region='leftPanel'}}
-      {{showWidget}}
-    {{/eachWidget}}
-  </div>
-
-  <div class="well" style="padding: 8px 0;">
-    {{showWidget 'dashboard'}}
-  </div>
+  {{showWidget 'staticPagesAdmin'}}
+  {{showWidget 'dashboard'}}
 
 </template>

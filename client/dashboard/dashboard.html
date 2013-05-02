@@ -11,12 +11,14 @@
 </template>
 
 <template name="dashboardToolbox">
-  <ul class="nav nav-list">
-    <li class="nav-header">Dashboard</li>
-    <li><a href="{{dashboardPath}}">Quick preview</a></li>
-    <li class="nav-header">Edit regions</li>
-    {{#each regions}}
-      <li><a href="{{dashboardRegionPath this}}">{{title}}</a></li>
-    {{/each}}
-  </ul>
+  <div class="well" style="padding: 8px 0;">
+    <ul class="nav nav-list">
+      <li class="nav-header">Dashboard</li>
+      <li><a href="{{dashboardPath}}">Quick preview</a></li>
+      <li class="nav-header">Edit regions</li>
+      {{#each regions}}
+        <li><a href="{{dashboardRegionPath this}}">{{title}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
 </template>

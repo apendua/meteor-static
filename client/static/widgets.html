@@ -1,4 +1,21 @@
 
+<template name="staticPageNavListItem">
+  <li class="{{class}}"><a href="{{pagePath this}}">{{head.title}}</a></li>
+</template>
+
+<template name="staticPageAdminActions">
+  <div class="well" style="padding: 8px 0">
+    <ul class="nav nav-list">
+      <li class="nav-header">Available pages</li>
+      {{#each pages}}
+        {{> staticPageNavListItem}}
+      {{/each}}
+      <li class="nav-header">Admin actions</li>
+      <li><a href="#">Add page</a></li>
+    </ul>
+  </div>
+</template>
+
 <template name="staticPageDropdown">
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -15,18 +32,26 @@
 </template>
 
 <template name="staticPageNavigation">
-  {{#if sections}}
-    <ul class="nav nav-list">
-      <li class="nav-header">Sections</li>
-      {{#each sections}}
-        <li class="{{class}}"><a href="#">{{title}}</a></li>
-      {{/each}}
-    </ul>
-  {{else}}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert">&times</button>
-      <h4>Warning!</h4>
-      Current document is <strong>undefined</strong> or it has no sections defined.
-    </div>
-  {{/if}}
+  <div class="static-pages-navigation">
+    {{#if sections}}
+      <ul class="nav nav-list">
+        <li class="nav-header">Sections</li>
+        {{#each sections}}
+          <li class="{{class}}"><a href="#">{{title}}<i class="icon-chevron-right"></i></a></li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times</button>
+        <h4>Warning!</h4>
+        Current document is <strong>undefined</strong> or it has no sections defined.
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="staticPageSource">
+  <form>
+    <input type="text" name="name">
+  </form>
 </template>
