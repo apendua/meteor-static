@@ -21,6 +21,9 @@ Template.loginDialog.helpers({
   'id': function () {
     return this.id || 'loginDialog';
   },
+  'message': function () {
+    return Session.get('loginMessage');
+  },
 });
 
 Template.loginDialog.events({

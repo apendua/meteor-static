@@ -12,13 +12,7 @@
           {{#eachWidget region='topPanel'}}
             {{showWidget}}
           {{/eachWidget}}
-          <li class="divider-vertical"></li>
-          <li class="dropdown">
-            {{> accountMenu}}
-          </li>
-          <li role="presentation">
-            <a role="menuitem" href="#loginDialog" data-toggle="modal">Sign in</a>
-          </li>
+          <li class="dropdown">{{showWidget 'login'}}<li>
         </ul>
         <div class="pull-right">
           {{renderSearchBox class="navbar-form"}}
