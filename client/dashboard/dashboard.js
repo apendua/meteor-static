@@ -1,4 +1,8 @@
 
+Dashboard = new Meteor.Collection ("dashboard");
+
+Meteor.subscribe("dashboard");
+
 require('widgets', function () {
 
 Widgets.instance('dashboard', {
