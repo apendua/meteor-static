@@ -1,0 +1,38 @@
+<template name="staticPagesCreatePageDialog">
+  <div id="{{id}}" class="hide modal fade" tabindex="-1" role="dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times</button>
+      <h3>Create page</h3>
+    </div>
+    <div class="modal-body">
+      {{#isolate}}
+        {{> staticPagesCreatePageForm}}
+      {{/isolate}}
+    </div>
+    <div class="modal-footer">
+      {{! TODO: disable/enable buttons }}
+      <button class="btn-link pull-left" data-action="switch" data-type="resetPassword">Forgot password?</button>
+      <button class="btn-link" data-action="" data-type="signIn">Sign in</button>
+      <button class="btn-link" data-action="" data-type="createAccount">Create account</button>
+    </div>
+  </div>
+</template>
+
+<template name="staticPagesRemovePage">
+  <div id="{{id}}" class="hide modal fade" tabindex="-1" role="dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times</button>
+      <h3>Create page</h3>
+    </div>
+    <div class="modal-body">
+      {{#isolate}}
+      {{/isolate}}
+    </div>
+    <div class="modal-footer">
+      {{! TODO: disable/enable buttons }}
+      <button class="btn-link pull-left" data-action="switch" data-type="resetPassword">Forgot password?</button>
+      <button class="btn-link" data-action="" data-type="signIn">Sign in</button>
+      <button class="btn-link" data-action="" data-type="createAccount">Create account</button>
+    </div>
+  </div>
+</template>
