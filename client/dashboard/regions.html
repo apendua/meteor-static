@@ -11,7 +11,7 @@
         {{/each}}
       {{/actions}}
       <div class="form-actions">
-        {{#actions category="dashboard" object="region" type="modify"}}
+        {{#actions module="dashboard" object="region" type="modify"}}
           <button type="submit" class="btn btn-primary">
             Save changes</button>
           <button type="button" class="btn" data-action="addWidget">
@@ -28,7 +28,7 @@
       <div class="container">
         <ul class="nav">
           {{#each widgets}}
-            {{showWidget}}
+            {{showWidget tag="li"}}
           {{/each}}
         </ul>
       </div>
