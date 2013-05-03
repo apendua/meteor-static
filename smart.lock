@@ -23,7 +23,7 @@
       "actions": {
         "git": "https://github.com/apendua/meteor-actions.git",
         "branch": "master",
-        "commit": "a2418ba94fdbebf7ee3cff734ee4132ec29e46ec"
+        "commit": "1b7c3dcde4a60b681651c27e56b8cf4ecd46e54f"
       },
       "ace-editor": {
         "git": "https://github.com/apendua/meteor-ace.git",
