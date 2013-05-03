@@ -18,10 +18,10 @@ Widgets.register({
   module : 'dashboard',
   name   : 'toolbox',
 }, {
-  render: function (data) {
+  show: function (data) {
     return new Handlebars.SafeString(Template.dashboardToolbox(data));
   },
-  fetch: function (config) {
+  load: function (config) {
     return {
       regions: Dashboard.find({}),
     };

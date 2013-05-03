@@ -14,6 +14,13 @@ Template.staticPageAdminActions.helpers({
   },
 });
 
+Template.staticPagesPreview.helpers({
+  chunk: function () {
+    //TODO: enable iterating
+    return this.body[0];
+  },
+});
+
 Handlebars.registerHelper('sections', function () {
   var sections = [];
   _.each(this.body, function (chunk) {
@@ -28,10 +35,9 @@ require('widgets', function (Widgets) {
 
   Widgets.register({
     module : 'static',
-    type   : 'source',
     name   : 'document',
   }, {
-    fetch: function (config) {
+    load: function (config) {
       if (!config.selector)
         // return current document
         return Documents.findOne({_id:Session.get('docId')});
@@ -45,7 +51,6 @@ require('widgets', function (Widgets) {
   Widgets.register({
     module : 'static',
     region : 'navbar',
-    type   : 'widget',
     name   : 'dropdown',
   }, function (data) {
     return Template.staticPageDropdown(data);
@@ -53,7 +58,6 @@ require('widgets', function (Widgets) {
 
   Widgets.register({
     module : 'static',
-    type   : 'widget',
     name   : 'navigation',
     region : 'sidebar',
   }, function (data) {
@@ -62,10 +66,27 @@ require('widgets', function (Widgets) {
 
   Widgets.register({
     module : 'static',
-    type   : 'widget',
     name   : 'admin',
   }, function (data) {
     return Template.staticPageAdminActions(data);
+  });
+
+  Widgets.register({
+    module : 'static',
+    name   : 'preview',
+  }, {
+    show: function (data) {
+      return Template.staticPagesPreview(data);
+    },
+    edit: function (config) {
+
+    },
+    load: function (config) {
+      if (!config.selector)
+        // return current document
+        return Documents.findOne({_id:Session.get('docId')});
+      return Documents.findOne(config.selector);
+    },
   });
 
   Widgets.instance('staticPagesAdmin', {
