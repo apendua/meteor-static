@@ -1,0 +1,6 @@
+.widget-toolbar {
+}
+
+.widget-toolbar [class^=icon-chevron-] {
+  opacity : .5;
+}

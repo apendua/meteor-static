@@ -43,7 +43,7 @@ Meteor.startup(function () {
   });
 
   ensureRegion('leftPanel', {
-    title: 'Side panel',
+    title: 'Left panel',
   });
 
   // FAKE WIDGETS
